@@ -18,6 +18,7 @@ Two tiers: **confirmed** (paper-backed, quality-gated, production-ready for agen
 - [`purpose-scoped-authority.md`](confirmed/architecture/purpose-scoped-authority.md) — Federated sources with scoped authority over managed correspondences, not a single source of truth
 - [`skill-surface-types.md`](confirmed/architecture/skill-surface-types.md) — local_module / repo_skill / codex_subagent / model_replay: surface types and their required file structures
 - [`subagent-per-task-isolation.md`](confirmed/architecture/subagent-per-task-isolation.md) — Pattern A [confirmed]: fresh isolated context per subagent; Pattern B [candidate]: two-stage review ordering
+- [`schema-valid-not-runtime-executable.md`](confirmed/architecture/schema-valid-not-runtime-executable.md) — Four ordered gates (shape → semantic → fact → supportability) at the orchestrator dispatch boundary; gate failure → blocked, not auto-corrected
 
 ### agents/
 

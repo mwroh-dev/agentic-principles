@@ -98,6 +98,10 @@
 
 서브에이전트 프롬프트는 완전히 자기완결적이어야 한다. 오케스트레이터 히스토리를 전달하는 것은 오류다.
 
+### [Schema-Valid Is Not Runtime-Executable](confirmed/architecture/schema-valid-not-runtime-executable.md)
+
+LLM 출력이 schema를 통과해도 실행 가능하다는 보장이 없다. 오케스트레이터 dispatch 경계에서 shape → semantic → fact → supportability 4개 게이트를 순서대로 통과해야 한다. 어느 게이트에서든 실패하면 blocked — 자동 보정하지 않는다.
+
 ### [계획은 제어 구조다](confirmed/architecture/plan-as-control-structure.md)
 
 계획은 실행 지시서가 아니라 이탈 감지를 위한 제어 구조다. 동적 우선순위 태스크 큐로 분해하고 각 checkpoint에서 비교해야 한다.
