@@ -56,3 +56,14 @@ Yes. Multiple overlapping names: "trajectory evaluation" (Anthropic/OpenAI), "pr
 
 Candidate — promoted from initial draft, 2026-05-18.
 Promotion-ready — strong academic backing (4 papers) + Anthropic + OpenAI official docs. Pattern is explicitly named in literature under multiple terms.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Eval written after implementation | Measurable eval criteria must exist and be agreed upon before implementation begins; the criteria must not be derived from or shaped by the implementation they are meant to evaluate |
+| Eval scores only the final output | The eval must produce verdicts at each step of the execution trace, covering preconditions, invariants, and governance policies — not only the terminal result |
+| Step-level verdicts are unavailable | Individual steps in the execution trace must be independently scorable; aggregate pass/fail alone must not be the only signal available |

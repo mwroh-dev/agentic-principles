@@ -46,3 +46,15 @@ The distinction is not just about content — it is about **who reads it** and *
 - **Migration timing ambiguity:** The split becomes necessary when agents need to read knowledge across runs. For single-run pipelines, a unified store is an acceptable approximation. Migrating too early adds overhead; migrating too late requires backfilling.
 - **Transition policy unsolved:** There is no established rule for when an episodic record "graduates" to semantic status. As of 2026, this remains an open problem in the literature.
 - **Overwrite vs append confusion:** If the storage layer truncates and rewrites files per run, it is producing per-run episodic snapshots (acceptable) not a growing audit trail (not acceptable for compliance). The distinction must be explicit in the storage implementation.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Episodic artifacts and semantic knowledge stored in the same location | The corrected design must place artifacts and knowledge in structurally separate stores such that each store's retention policy can be applied independently |
+| Audit records became mutable | The corrected artifact store must be append-only or write-once per run; no entry may be modified or deleted after the run that produced it completes |
+| Knowledge store is accumulating append-only when in-place updates are required | The corrected knowledge store must support in-place updates so that stale patterns can be superseded rather than accumulated alongside current ones |
+| Tamper-evidence of audit records cannot be established | The corrected artifact store must preserve records in a form where any post-capture modification is detectable, and where original records remain distinguishable from post-hoc edits |

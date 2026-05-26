@@ -66,3 +66,14 @@ Do not apply when: the task is a single deterministic function call with no bran
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/growth-team-mindset).
 Confirmed — promoted 2026-05-19, scored 19/25 by user decision.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Plan treated as execution script without checkpoints → drift accumulates undetected | Actual runtime state must be compared against the plan's expected conditions at each defined checkpoint before the next step is permitted to execute |
+| Plan not compared against runtime state → no divergence detection | When actual state diverges from plan expectations, execution must halt and replanning must occur before continuation; continuation without replanning is not a valid recovery path |
+| Failure point cannot be isolated | Plan structure must allow any failing step to be identified without re-executing the entire sequence; checkpoints must partition the execution such that bisection of failure is possible |

@@ -59,3 +59,14 @@ Do not apply when: the system has no external harness or enforcement runtime —
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — promoted 2026-05-19, score 21/25 (코어성 4, 리스크감소 5, 확장성 4, 제어성 5, 기록성 3).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Safety or enforcement logic placed inside a skill definition → bypassable when LLM is compromised | Enforcement logic must reside in a layer that operates independently of LLM state; it must activate on every relevant trigger without requiring model invocation or model cooperation |
+| Rules structured as invocable procedures → can be omitted by orchestrator decision | Rules must not be callable — they must fire deterministically on every applicable event regardless of orchestrator intent; there must be no code path through which a rule is silently skipped |
+| Audit requires reading all skill definitions to verify policy coverage | All enforceable constraints must be locatable in a single, bounded constraint layer; an auditor must be able to verify policy coverage without inspecting skill implementations |

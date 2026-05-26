@@ -59,3 +59,15 @@ Do not apply when: the executor has full bidirectional clarification capability 
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/growth-team-mindset, scored 21/25).
 Confirmed — promoted 2026-05-19 by user decision (score 21/25).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Delegation issued without acceptance criteria | The revised specification must state at least one verifiable condition that the executor's output must meet before the task is considered complete |
+| Out-of-scope boundaries absent from the directive | The revised specification must explicitly enumerate what the executor must not do or produce, independent of what it is asked to do |
+| Required judgment criteria left unspecified | Every decision point where the executor could choose among valid alternatives must have an explicit criterion stated; no judgment room should remain unintended |
+| Correction loop required after delegation | The corrected specification must be complete enough that the same task, re-delegated without mid-flight clarification, would produce an acceptable result |

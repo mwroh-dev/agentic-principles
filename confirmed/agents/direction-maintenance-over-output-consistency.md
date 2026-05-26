@@ -66,3 +66,15 @@ Do not apply when: the agent system is stateless, single-turn, and each response
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/harness-direction-over-consistency).
 Confirmed — 2026-05-19, scored 20/25 (user decision).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Format-consistent but semantically drifting outputs go undetected | Drift must be detectable before the next delegation cycle begins; detection must operate on semantic/behavioral signals, not on output format |
+| No feedback loop exists for directional correction | A correction mechanism must be present that targets the agent's trajectory relative to the original goal, not the surface structure of its outputs |
+| Format consistency is accepted as evidence of correct direction | Format conformance must be explicitly decoupled from directional conformance; a passing format check must not satisfy a direction check |
+| Drift compounds across multiple delegation steps before being caught | The harness must be capable of interrupting the delegation chain at the step where drift first becomes detectable, without requiring full task completion |

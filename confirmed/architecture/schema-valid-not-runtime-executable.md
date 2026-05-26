@@ -98,3 +98,15 @@ Candidate — created 2026-05-22 from user insight (orchestrator skill 2개 구�
 
 **5-dimension score: 24/25** (코어성 5, 리스크감소 5, 확장성 5, 제어성 5, 기록성 4)
 → Meets confirmed threshold (19+). Recommend promotion. 확장성 5로 상향: multi-agent dispatch가 늘수록 pre-dispatch gate의 가치가 직접 비례해서 증가함 (MAST, Trajectory Cost 근거).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Schema-valid output dispatched to subagent without Semantic, Fact, or Supportability gate | All four gates must be traversed in order before any subagent receives the output; a pass on Gate N does not authorize dispatch — Gates N+1 through 4 must still complete |
+| Gate failure auto-corrected rather than blocked | A gate failure must result in a blocked state that halts dispatch; auto-correction is not a valid resolution path — any correction must be explicit, auditable, and followed by a full gate re-traversal from the beginning |
+| A gate skipped because an earlier gate passed | No gate may be omitted regardless of upstream gate outcomes; each gate checks a distinct property that earlier gates do not cover |
+| Validation placed inside subagents after dispatch | All gates must run at the orchestrator dispatch boundary before any subagent is invoked; post-dispatch validation in subagents does not satisfy this property |

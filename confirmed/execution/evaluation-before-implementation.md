@@ -54,3 +54,14 @@ Do not apply when: the agent is an exploratory prototype with no expected repeat
 
 Candidate — created 2026-05-19 from user insight: evaluation criteria must precede implementation in agent system design; absence causes artifact models, agent boundaries, and skill surfaces to converge on implementer convenience.
 Confirmed — promoted 2026-05-19, score 21/25 (코어성 5, 리스크감소 4, 확장성 5, 제어성 4, 기록성 3).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Implementation began before eval criteria were defined | Measurable eval criteria must exist and be reviewed before any implementation commits begin; criteria written after implementation must not be shaped by the implementation they evaluate |
+| Requirements are present but not expressible as measurable criteria | Every requirement driving the implementation must be expressible as a pass/fail criterion against observable agent behavior; unmeasurable requirements must block implementation until made measurable |
+| Artifact boundaries or agent scope determined by implementer convenience | Artifact boundaries, agent scope, and skill surface must derive from what the eval criteria require to be observable — not from what is easiest to implement |

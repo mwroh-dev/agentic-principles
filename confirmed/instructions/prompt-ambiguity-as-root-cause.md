@@ -58,3 +58,15 @@ Do not apply when: the prompt is fully specified and the model's output is demon
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/korean-prompt-corrector).
 Confirmed — promoted 2026-05-19, scored 19/25 by user decision.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Prompt contains unresolved judgment room on a pre-determined decision | The revised prompt must specify an explicit criterion for every decision point that the caller has already resolved; no implicit inference should be required of the model |
+| Agent interpreted an ambiguous dimension silently and proceeded | The revised prompt must eliminate ambiguity on that dimension so that any conforming model produces the same decision without clarification |
+| Output variance across runs is diagnosable to a specific ambiguous element | The revised prompt must be specific enough that rerunning it with different models or temperatures yields outputs that differ only on genuinely open-ended dimensions, not on the diagnosed element |
+| Correction loop applied to model rather than prompt | The corrective action must target the prompt; the result must be a prompt revision that prevents the same variance without changing the model or its parameters |

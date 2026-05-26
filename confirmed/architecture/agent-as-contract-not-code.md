@@ -63,3 +63,15 @@ Do not apply when: the system is a single agent with a single tool and a fixed i
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — promoted 2026-05-19, score 21/25 (코어성 5, 리스크감소 4, 확장성 5, 제어성 4, 기록성 3).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Procedural logic (conditional branches, retry sequences, tool invocation order) is embedded inside the agent's role definition | The role definition contains only declarative elements: accepted inputs, produced outputs, allowed tools, and failure modes. No step-by-step execution logic appears in the role specification. |
+| The same execution code is duplicated across agent definitions that serve different roles | Execution logic exists in a single shared execution unit referenced by multiple role contracts. Each role contract references the shared unit; it does not contain a copy. |
+| An agent's context window grows across turns because execution history accumulates alongside policy state | Execution state and policy state reside in structurally distinct scopes. Clearing or resetting one does not affect the other. |
+| A role contract cannot be verified without running the full execution pipeline | The role contract is independently checkable — its preconditions, invariants, and output types can be evaluated against a specification without invoking the execution layer. |

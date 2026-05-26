@@ -59,3 +59,15 @@ The pattern is not named in literature as a unit; closest named concepts are "ru
 
 Candidate — extracted from literature review, 2026-05-18.
 Confirmed — strong independent backing (5 papers including production systems at Meta) + Anthropic + LangChain official. Pattern named as "runtime enforcement" and "layered guardrails" across multiple independent implementations. Quality gate passed 2026-05-18.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Safety policy enforced only via prompt instructions | The corrected enforcement mechanism must operate as deterministic code that activates regardless of what the LLM produces; prompt instructions alone must not constitute the sole enforcement of any safety-critical rule |
+| Safety rule bypassable under adversarial or degraded LLM state | The corrected enforcement mechanism must activate on the action itself, not on the LLM's description or intent; a jailbroken or degraded model must not be able to suppress the enforcement by producing different output |
+| No safety-critical rule enforced by code hooks | The corrected design must have at least one deterministic code-level enforcement point for every safety-critical rule; the enforcement must not depend on LLM judgment at the point of blocking |
+| Role layer underspecified, causing scope ambiguity to propagate through downstream layers | The corrected Role layer must define permitted actions with enough precision that any in-scope action is distinguishable from any out-of-scope action without requiring LLM interpretation at enforcement time |

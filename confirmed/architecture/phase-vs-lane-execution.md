@@ -56,3 +56,14 @@ The dependency graph is constructed at plan time and encoded in the execution pl
 
 Candidate — extracted from agent session analysis, 2026-05-18.
 Promotion-ready — strongest academic backing across 7 candidates (5 papers, 2025–2026) plus Anthropic and OpenAI official documentation. Pattern is consistently named ("DAG-based execution," "topology-adaptive orchestration") and empirically validated.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Independent tasks serialized → throughput loss | Dispatch topology must reflect the dependency structure of the task graph; tasks with no shared state or dependency edges must be dispatchable concurrently |
+| Dependent tasks parallelized → race conditions or non-deterministic results | Tasks where the output of one is consumed as the input of another must be ordered such that the producer completes before the consumer is dispatched |
+| Resource contention between concurrent tasks causes runtime failure | Any shared write target, exclusive lock, or rate-limited resource must be encoded as a dependency edge or covered by an explicit coordination primitive before the affected tasks are dispatched |

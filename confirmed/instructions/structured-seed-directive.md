@@ -67,3 +67,15 @@ Do not apply when: the agent executes a single deterministic operation with no b
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/harness-direction-over-consistency).
 Confirmed — 2026-05-19, user decision, score 19/25.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Initial directive missing one or more structural elements | The corrected directive must contain all four elements — direction, constraints, priorities, and prohibitions — each stated explicitly, not implied by context |
+| Agent regressed to statistically average output due to absent constraints or prohibitions | The corrected directive must include at least one constraint or prohibition that distinguishes the intended behavior from the default output for the same task description |
+| Omission of a structural element was unintentional | Any element intentionally omitted from the directive must be explicitly documented as a deliberate choice with stated rationale; absence alone is not sufficient |
+| Contradictory constraints caused the agent to select heuristically | The corrected directive must resolve all conflicting elements so that the agent faces no situation where two stated constraints produce incompatible requirements |

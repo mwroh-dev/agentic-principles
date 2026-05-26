@@ -54,3 +54,14 @@ Patchable elements (one per iteration): prompt, tool definition, middleware, ret
 
 Candidate — 2026-05-18.
 Promotion-ready — strong paper backing (Meta-Harness + EDDOps + Survey) + Anthropic official docs. Pattern is partially named in literature ("EDDOps"). Atomic-change rule is empirically validated in Meta-Harness (arXiv 2603.28052).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Multiple harness elements changed in a single iteration | Each iteration must change exactly one harness element; the changed element must be identifiable and attributable to any observed performance delta |
+| Causal attribution lost due to multi-element changes | For each performance change in the eval score, exactly one harness modification must be traceable as its cause |
+| Regression suite not maintained | The regression suite must pass in full before any new harness element is modified; a failing regression must block the next iteration |

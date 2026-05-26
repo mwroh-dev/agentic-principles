@@ -75,3 +75,15 @@ Before applying this framework, identify which directories in your project corre
 | Documentation | `docs/`, `adr/`, `decisions/` | Human-facing |
 
 The abstract layer names used throughout this document are intentionally generic. The concrete directory names in any given project are implementation choices, not the framework itself. The framework governs which concern type belongs in which layer — the mapping of layers to paths is a local decision.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| A policy or constraint is expressed only in a documentation-layer artifact (prose, ADR, README) with no corresponding runtime enforcement | Any invariant that must hold across every run exists in the runtime code layer. The documentation-layer representation, if retained, includes a pointer to the code-layer source of truth and is explicitly marked as a derived view. |
+| An artifact with two distinct stakeholder concerns (e.g., a constraint that is both runtime-enforced and human-reviewable) is maintained independently in both layers with no declared authority | One layer is designated primary; the other is a derived view. The derived view contains an explicit pointer to the primary. Only the primary layer is edited; the derived view is regenerated or manually synchronized from it. |
+| Procedure-layer content (agent workflow, playbook) contains embedded rationale, design decisions, or explanatory prose | Rationale and design decisions are extracted to the documentation layer (ADR or equivalent). The procedure layer retains only executable steps. Each step is invocable without reading the rationale. |
+| A runtime-enforced invariant was placed in the procedure layer because it was observed once and not yet confirmed across multiple contexts | The artifact is promoted to the runtime code layer only after the invariant is confirmed empirically across multiple independent contexts. Until promotion, it remains in the procedure layer with an explicit promotion-condition annotation. |

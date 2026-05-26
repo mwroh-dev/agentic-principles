@@ -85,3 +85,14 @@ Two consumers can share a field — for example, `throttling_policy` — if both
 **Subagent context isolation** (`subagent-per-task-isolation`) governs whether context accumulates between dispatches — apply it first, then apply this pattern to specify what the isolated context contains. This pattern prescribes what that context contains: field-level projection from a source artifact, taxonomy locality, and structured result artifact return contracts. The two patterns are complementary: isolation is the prerequisite; this pattern specifies the content of the isolated context.
 
 **Phase vs. Lane execution** (`phase-vs-lane-execution`) determines dispatch topology. This pattern is topology-agnostic — apply artifact projection regardless of whether consumers run serially or in parallel. The artifact flow (source artifact → projected view → result artifact → synthesis) applies equally to serial phase specialists and parallel lanes.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| The full source artifact is passed directly to one or more subagents | Each subagent receives only the fields declared in its role's projection specification. The orchestrator holds the full artifact; no subagent has access to fields outside its declared scope. |
+| A subagent returns its internal reasoning chain, intermediate scratchpad, or deliberation transcript as its output | The subagent's output contains only decision values and a concise rationale summary conforming to a pre-declared result artifact schema. The orchestrator can merge outputs structurally without re-interpreting prose. |
+| A classifier or routing agent exposes its classification taxonomy to downstream agents | Downstream agents receive only the decision result (e.g., a classification ID, risk level, or intent category). The taxonomy, heuristics, and reasoning that produced the result remain private to the classifier. |

@@ -61,3 +61,14 @@ Do not apply when: the correct output depends on context that cannot be reduced 
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — 2026-05-19. Scored 20/25 by user review. Promoted to confirmed/architecture/.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| An LLM is invoked for a step whose correct output is fully determined by its input (fixed routing, schema validation, field extraction from a known format) | The step produces identical output for identical input on every invocation. A unit test with a fixed expected output can be written and passes consistently. |
+| Invocation cost for a fixed transformation scales linearly with the number of times the workflow runs | The per-invocation cost of the step approaches zero after an initial setup cost. Total cost does not grow proportionally with invocation count for the same transformation. |
+| The same deterministic transformation is implemented as a prompt in one part of the pipeline and as code in another | A single canonical implementation exists for each transformation. All pipeline paths that apply the same transformation call the same implementation. |

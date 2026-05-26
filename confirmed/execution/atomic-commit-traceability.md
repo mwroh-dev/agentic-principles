@@ -59,3 +59,15 @@ Do not apply when: the entire operation is a single irreversible action with no 
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — promoted 2026-05-19. Score: 19/25 (user decision).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Multi-step work committed as a single unit with no intermediate verification | Each atomic unit must be independently verifiable before the next unit begins; a failure at any step must not require the full sequence to be restarted |
+| Failure localization requires full restart | It must be possible to isolate the first failing unit via binary search over the execution trace, without replaying steps that have already been verified |
+| No per-step verification exists | Every unit in the sequence must produce an observable state change that can be verified before the next unit is entered; unverified steps must block forward progress |
+| Rollback to a prior verified state requires replaying the full sequence | The system must be able to re-enter execution at any prior verified checkpoint without re-executing steps that preceded it |

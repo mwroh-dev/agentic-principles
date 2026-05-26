@@ -79,3 +79,14 @@ Closest supporting structure: **Verified Multi-Agent Orchestration: Plan-Execute
 ### Promotion History
 
 - 2026-05-18: Candidate. The two-stage framing is not independently named or confirmed in literature. Remains candidate until external confirmation.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Orchestrator conversation history passed to subagents → context pollution or rot | Each subagent prompt must be fully self-contained — interpretable and actionable with no reference to orchestrator history; the subagent must not require prior conversation context to produce a correct output |
+| Subagent output includes internal reasoning rather than decision artifacts | Subagent outputs returned to the orchestrator must contain only decision artifacts; intermediate reasoning, exploratory steps, and discarded alternatives must remain internal to the subagent's context and not propagate upstream |
+| Subagent context contains more information than needed for its task | Each subagent context must be scoped to exactly the information required for the assigned task — excess context increases contamination risk and token cost without improving output quality |

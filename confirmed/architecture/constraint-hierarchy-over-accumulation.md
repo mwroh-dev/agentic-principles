@@ -54,3 +54,15 @@ Top-level instructions should frame what the system **is**, not what it is **not
 - **Distributed enforcement layers must actually exist.** Pushing constraints to judgment, code, or knowledge without building those layers is deferred accumulation, not elimination. The four-layer target (constitutional / judgment / structural / knowledge) requires investment in the non-constitutional layers.
 - **"What counts as constitutional" requires judgment.** There is no mechanical test for constitutional status. Teams will disagree, and the threshold will drift toward accumulation without periodic audits. Schedule explicit reviews of the top-level constraint set.
 - **Positive posture framing can obscure necessary limits.** Framing everything as "what the system is" risks undercommunicating genuine hard limits. Each constitutional prohibition should be explicitly flagged as such, not buried in posture language.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| The top-level instruction set contains more than ~4 prohibition-type rules, including constraints that are context-dependent or structurally enforceable | Every constraint at the top level is universally irreversible — valid in all contexts with no legitimate exception. Context-dependent constraints exist in a judgment layer; structurally checkable constraints exist in validators or hooks, not in the instruction set. |
+| Hard-ban constraints are numerous enough that any single one may be overlooked or deprioritized during execution | The complete set of top-level hard-ban constraints is small enough to be reliably recalled in full during any single execution. Each prohibition is individually unambiguous and cannot be confused with another. |
+| A new prohibition was added to the top level without passing the four-question constitutional test | The prohibition exists at a layer determined by its answer to the four-question test: constitutional (top-level), judgment (positive posture), structural (validator or hook), or knowledge (documented pattern). No prohibition reaches the top level without confirming it is always-true and irreversible. |
+| Competing constraints cause an agent to selectively ignore some prohibitions in unpredictable ways | Constraints at the same layer do not conflict. When a conflict is resolved, the lower-priority constraint is demoted to a more specific enforcement layer rather than left at the top level with reduced weight. |

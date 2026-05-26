@@ -72,3 +72,15 @@ Do not apply when: the system executes a single deterministic function with no L
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — promoted 2026-05-19, score 22/25 (코어성 4, 리스크감소 5, 확장성 4, 제어성 4, 기록성 5).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Raw telemetry merged with evidence or reports | The corrected design must place raw telemetry in a store that is immutable after capture and independently queryable without requiring access to evidence artifacts or reports |
+| Evidence artifacts not independently regenerable | Each evidence artifact must be fully derivable from raw telemetry alone, without depending on other artifacts or reports; the derivation process must be repeatable |
+| Telemetry modified after capture | The corrected telemetry store must enforce immutability such that no post-capture modification is possible; original captured values must remain unchanged for the lifetime of the tier |
+| Reports require direct access to raw telemetry | The corrected report generation must be derivable entirely from evidence artifacts; raw telemetry must not be a required input to any report-generation step |

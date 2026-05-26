@@ -61,3 +61,15 @@ Do not apply when: the system has no persistence layer and storing traces introd
 
 Candidate — created 2026-05-19 from user insight.
 Confirmed — 2026-05-19, scored 19/25 (user decision).
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Only successful execution traces retained | The corrected logging design must retain traces for all execution attempts — including failures, partial runs, and abandoned runs — without filtering by outcome |
+| Failure distribution invisible due to success-only retention | The corrected retention policy must make the failure distribution queryable independently of the success distribution; the two must not be conflated in a single aggregated record |
+| Root cause unattributable because inter-step failure state was discarded | Each retained failure trace must capture sufficient inter-step decision state that the originating agent, step, and condition can be identified through log analysis alone |
+| Failure traces not convertible to evaluation cases | The corrected failure records must be structured such that any retained failure trace can be used as an input to an evaluation or regression test without requiring access to the live system |

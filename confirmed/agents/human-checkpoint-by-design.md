@@ -63,3 +63,14 @@ Do not apply when: tasks are fully reversible, low-stakes, and short enough that
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/growth-team-mindset). Scored 20/25.
 Confirmed — promoted 2026-05-19 by user decision.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Intervention timing determined at runtime rather than at design time | Checkpoint placement must be a design-time decision; the conditions that trigger a checkpoint must be specified before execution begins, not inferred from runtime signals |
+| Checkpoints placed at low-stakes state transitions | Each checkpoint must be positioned at a transition where errors compound, actions are irreversible, or agent intent and human intent are most likely to diverge |
+| Rubber-stamping from over-checkpointing | Checkpoint density must be calibrated so that each review point requires genuine human judgment; a checkpoint where the human outcome is predetermined is not a checkpoint |

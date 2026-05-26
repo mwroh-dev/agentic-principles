@@ -68,3 +68,15 @@ Do not apply when: the agent is stateless by design and each run is independent 
 ## Promotion History
 
 Confirmed — promoted 2026-05-19 from user insight (scored 21/25). Source: https://www.minwoo.cloud/blog/ai-failure-hooks-session-log-lessons
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Lessons buried in raw session logs with no separate registry | The corrected design must place extracted lessons in a dedicated, append-only store that is readable without replaying or parsing any session log |
+| Repeated mistakes not surfaced across sessions | Each failure entry in the corrected registry must be a single declarative, condition-specific rule — not a narrative — that can be fed as a prefix to subsequent runs without further processing |
+| Registry entries too vague to produce actionable signal | Each corrected entry must state the failure condition and corrective rule in a form that a conforming agent can apply without ambiguity; entries that do not meet this standard must be rewritten or rejected |
+| Session history too long to surface relevant failures | The corrected registry must be independently accessible at the start of a run without requiring the agent to ingest raw session history; compact lessons must be separable from the session log that produced them |

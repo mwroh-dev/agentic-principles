@@ -65,3 +65,14 @@ Do not apply when: the evaluated behavior has no defined failure boundary — fo
 
 Candidate — created 2026-05-19 from user insight (source: https://www.minwoo.cloud/blog/harness-direction-over-consistency). Scored 21/25.
 Confirmed — promoted 2026-05-19 by user decision.
+
+## Properties to Restore
+
+위반이 감지됐을 때, 수정된 결과가 만족해야 할 속성들이다.
+구체적인 구현 방법은 컨텍스트에 따라 달라질 수 있다.
+
+| Violation detected | Properties the fix must satisfy |
+|--------------------|--------------------------------|
+| Eval suite contains only golden cases; no must-fail cases present | The suite must contain both golden cases (must-pass) and red cases (must-refuse or must-fail); absence of either type is a structural incompleteness that must be remedied before the suite is considered valid |
+| Safety or constraint regressions are invisible because must-fail cases are absent | Any system with a defined output boundary must have red cases that make boundary violations detectable; a regression in refusal or constraint behavior must surface as a test failure |
+| Shortcut behaviors satisfy golden cases while violating red cases | The suite must be able to distinguish a system that performs desired behaviors from one that merely appears to — shortcut exploitation visible only on must-fail inputs must produce a failing result |
