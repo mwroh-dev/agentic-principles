@@ -55,6 +55,12 @@ The pattern is not named in literature as a unit; closest named concepts are "ru
 
 **Advisory agents**: Does not apply to purely advisory agents with no tool execution capability — enforcement hooks add overhead without benefit.
 
+## Related: Skill Discovery as a Permission Surface
+
+Prompt instructions cannot enforce skill authorization, just as they cannot enforce any other safety policy. A skill that is discoverable by the model is a capability surface; agent-specific exclusivity must be enforced at the Role layer (tool grants), the Gate layer (discovery scope), or the Hook layer (caller-aware runtime gateway).
+
+See [`../architecture/skill-discovery-is-not-authorization.md`](../architecture/skill-discovery-is-not-authorization.md).
+
 ## Promotion History
 
 Candidate — extracted from literature review, 2026-05-18.

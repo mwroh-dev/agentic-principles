@@ -21,6 +21,12 @@ All orchestration logic, enforcement, contracts, connectors, and execution surfa
 ### Reusable Skills (`skills/`)
 Shared operating procedures usable across multiple workflows. Skills are not private implementation details of a single caller. If a procedure is only ever called by one agent, it belongs inside `agents/`, not `skills/`.
 
+### Skill Discovery Boundary
+
+Files under `skills/` are discoverable surfaces, not agent-private implementation details. Placement in `skills/` does not restrict which agents may invoke a skill — it only declares the skill is shared. If a procedure is private to one agent, it belongs in that agent's implementation layer or behind a runtime gateway.
+
+Public skills must be reusable across multiple workflows or safe to expose as a shared playbook. Exclusivity must be enforced through tool permissions (`disallowedTools: Skill`, `Skill(name)` deny rules), scoped subagent configuration, or discovery control — not by folder naming or prompt descriptions. See [`skill-discovery-is-not-authorization.md`](skill-discovery-is-not-authorization.md).
+
 ### Episodic Evidence (`artifacts/`)
 Immutable runtime evidence: audit logs, dry-run reports, approval records, run summaries. Regenerated each run. **Gitignored** — these are ephemeral outputs, not accumulated learning.
 

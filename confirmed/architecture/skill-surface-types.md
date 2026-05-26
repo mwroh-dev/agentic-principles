@@ -106,6 +106,19 @@ An offline or fallback execution path where a previous model output is replayed 
 - **`model_replay` overuse:** `model_replay` is prescribed for offline and fallback paths only. Using it as the primary surface to avoid LLM cost or latency is a misuse — model_replay outputs reflect a prior model state that may not match current prompts or context. Errors from stale outputs are harder to detect than live LLM errors. Audit any skill declared `model_replay` and verify it cannot be served by `repo_skill` or `local_module`.
 - **Surface boundary drift:** Over time, a `repo_skill` may accumulate code execution in its `scripts/` directory, blurring the boundary with `codex_subagent`. A `repo_skill` that routinely executes files, patches code, or calls external services should be reclassified as `codex_subagent` and `agent.md` added before deployment.
 
+## Visibility / Authority Axis
+
+Execution surface (the four types above) and authorization are separate axes. A `repo_skill` can be `public_discoverable` and still unsafe for some agents to invoke. A `codex_subagent` surface still requires tool and sandbox boundaries. Surface type does not imply authorization scope.
+
+| Axis value | Meaning |
+|---|---|
+| `public_discoverable` | Visible to model/root session; any agent with the `Skill` tool may invoke |
+| `agent_preloaded` | Content injected into a specific subagent context via `skills:` frontmatter — **not an allowlist** |
+| `manual_only` | Not auto-invoked by model; user-triggered explicit invocation still works |
+| `gateway_only` | Not discoverable; invoked through typed runtime command behind a harness-level gateway |
+
+See [`skill-discovery-is-not-authorization.md`](skill-discovery-is-not-authorization.md) for the failure mode (delegation bypass) and the enforcement mechanisms by platform.
+
 ## Surface Selection Guide
 
 | Task type | Recommended surface |

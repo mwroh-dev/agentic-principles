@@ -117,6 +117,10 @@
 
 LLM 출력이 schema를 통과해도 실행 가능하다는 보장이 없다. 오케스트레이터 dispatch 경계에서 shape → semantic → fact → supportability 4개 게이트를 순서대로 통과해야 한다. 어느 게이트에서든 실패하면 blocked — 자동 보정하지 않는다.
 
+### [스킬 디스커버리는 인가가 아니다](confirmed/architecture/skill-discovery-is-not-authorization.md)
+
+모델이 발견 가능한 스킬은 공개 capability surface이며 특정 에이전트의 사적 구현이 아니다. `skills:` preload는 allowlist가 아니고, 폴더 이름과 프롬프트 경고는 인가 경계가 아니다. 에이전트별 배타적 사용은 tool 권한(`disallowedTools: Skill`, `Skill(name)` deny rule), 스코프된 서브에이전트 설정, 디스커버리 제어로 강제해야 한다.
+
 ### [계획은 제어 구조다](confirmed/architecture/plan-as-control-structure.md)
 
 계획은 실행 지시서가 아니라 이탈 감지를 위한 제어 구조다. 동적 우선순위 태스크 큐로 분해하고 각 checkpoint에서 비교해야 한다.

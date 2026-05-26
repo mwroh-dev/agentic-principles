@@ -49,6 +49,12 @@ The replacement: not one canonical source, but **managed correspondences** — t
 | An LLM agent reads artifacts that can contradict each other | Declare explicit scope for each artifact (what it is authoritative over) in its header | Agents reading conflicting artifacts without scope declarations apply wrong semantics — enforcing policy from a rationale doc, or learning from a non-authoritative copy |
 | Artifacts must evolve independently at different rates | Preserve independence; establish a promotion path for deliberate synchronization | Forced synchronization slows evolution of stable artifacts to match volatile ones; treating them as one artifact risks all concerns on every update |
 
+## Skill, Permission, and Agent Layers
+
+Skill artifacts are authoritative over reusable procedure and context packaging. Permission configuration and runtime gateways are authoritative over execution authorization. Agent definitions are authoritative over role and task boundary. These artifacts must be kept in managed correspondence — treating `skills/` placement as a substitute for permission configuration is a category error.
+
+See [`skill-discovery-is-not-authorization.md`](skill-discovery-is-not-authorization.md).
+
 ## Known Limits / Failure Modes
 
 - **Correspondence overhead:** Explicit trace links, consistency checks, and drift reviews add coordination cost. For small teams or early-stage systems where artifact purposes have not yet diverged, SSOT is simpler and appropriate. Apply federated authority only when artifact purposes genuinely differ.
