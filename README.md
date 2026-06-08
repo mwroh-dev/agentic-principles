@@ -121,6 +121,14 @@ LLM 출력이 schema를 통과해도 실행 가능하다는 보장이 없다. �
 
 모델이 발견 가능한 스킬은 공개 capability surface이며 특정 에이전트의 사적 구현이 아니다. `skills:` preload는 allowlist가 아니고, 폴더 이름과 프롬프트 경고는 인가 경계가 아니다. 에이전트별 배타적 사용은 tool 권한(`disallowedTools: Skill`, `Skill(name)` deny rule), 스코프된 서브에이전트 설정, 디스커버리 제어로 강제해야 한다.
 
+### [정책 단일 소유자 원칙](confirmed/architecture/policy-single-owner-not-repeated.md)
+
+각 정책·규칙·행동 제약은 정확히 하나의 캐노니컬 소유자 파일을 가진다. 동일한 정책이 여러 파일에 동시에 존재하면 사본들이 독립적으로 드리프트한다. 모델은 충돌 버전을 위치 편향과 구문 두드러짐으로 해결하며 저자 의도는 무시된다. (22/25)
+
+### [타입 소스 기반 행동 계약 무결성](confirmed/architecture/behavioral-contract-integrity-via-typed-source.md)
+
+역할 계약 패밀리는 typed-source → generator → artifact 파이프라인을 따른다. 손으로 유지한 자유 텍스트 계약은 역할 패밀리 멤버 간 권한 경계가 조용히 드리프트되며 런타임 오류 신호가 없다. (20/25)
+
 ### [계획은 제어 구조다](confirmed/architecture/plan-as-control-structure.md)
 
 계획은 실행 지시서가 아니라 이탈 감지를 위한 제어 구조다. 동적 우선순위 태스크 큐로 분해하고 각 checkpoint에서 비교해야 한다.
@@ -144,6 +152,18 @@ LLM 출력이 schema를 통과해도 실행 가능하다는 보장이 없다. �
 ### [구조화된 Seed 지시문](confirmed/instructions/structured-seed-directive.md)
 
 에이전트 지시문은 목표(Goal), 제약(Constraint), 우발 상황(Contingency)을 분리해 명시해야 한다. 구조 없이 목표만 주면 에이전트의 지시 따르기 능력 상한이 낮아진다.
+
+### [진입 표면은 컨텍스트 로더다](confirmed/instructions/entry-surface-as-context-loader.md)
+
+prompt.md·CLAUDE.md 같은 진입 표면은 로딩 선언만 포함해야 한다. 정책이 진입 표면에 축적되면 위치 편향으로 인해 진입 표면이 사실상 최고 권위 문서가 된다 — 의도의 반대다. (20/25)
+
+### [상태 계약 우선 — 산문 런북 금지](confirmed/instructions/state-contract-over-prose-runbook.md)
+
+에이전트 페이즈 지시는 condition→action→trace 구조를 따른다. ReAct(ICLR 2023)와 MASMP가 이 패턴을 확립했다. "Before/Also/Then" 산문 체인은 연결어 모호성으로 인해 모델이 게이트를 선호도로 오해하는 조용한 오실행을 유발한다. (21/25)
+
+### [에이전트 지시 검증은 2-Tier로](confirmed/instructions/validator-structural-contract-not-content-police.md)
+
+에이전트 지시 검증은 Tier 1(구조적 사실, 자동화)과 Tier 2(품질 판단, 모델/사람 리뷰)로 분리한다. text.includes()나 assert.match()로 지시 품질을 검증하면 CI가 문서 아키텍처를 고정시켜 Arbiter가 측정한 프롬프트 간섭을 직접 유발한다. (21/25)
 
 ---
 
