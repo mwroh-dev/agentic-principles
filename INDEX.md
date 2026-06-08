@@ -1,6 +1,6 @@
 # Best Practice Knowledge Base — Index
 
-Last updated: 2026-05-26
+Last updated: 2026-06-08
 
 Two tiers: **confirmed** (paper-backed, quality-gated, production-ready for agent injection) and **candidates** (observed patterns, pending independent confirmation).
 
@@ -20,6 +20,14 @@ Two tiers: **confirmed** (paper-backed, quality-gated, production-ready for agen
 - [`subagent-per-task-isolation.md`](confirmed/architecture/subagent-per-task-isolation.md) — Pattern A [confirmed]: fresh isolated context per subagent; Pattern B [candidate]: two-stage review ordering
 - [`schema-valid-not-runtime-executable.md`](confirmed/architecture/schema-valid-not-runtime-executable.md) — Four ordered gates (shape → semantic → fact → supportability) at the orchestrator dispatch boundary; gate failure → blocked, not auto-corrected
 - [`skill-discovery-is-not-authorization.md`](confirmed/architecture/skill-discovery-is-not-authorization.md) — Discoverability is a capability grant; `disallowedTools`/`Skill(name)` rules enforce access; folder naming, `skills:` preload, and implicit-invocation flags do not
+- [`policy-single-owner-not-repeated.md`](confirmed/architecture/policy-single-owner-not-repeated.md) — Each policy has exactly one canonical owner file; copies must be replaced with loading declarations. Extends `purpose-scoped-authority.md`. (22/25)
+- [`behavioral-contract-integrity-via-typed-source.md`](confirmed/architecture/behavioral-contract-integrity-via-typed-source.md) — Role contract families follow typed-source → generator → artifact pipeline; hand-maintained free text causes silent authority boundary drift across role family members. (20/25)
+
+### instructions/
+
+- [`entry-surface-as-context-loader.md`](confirmed/instructions/entry-surface-as-context-loader.md) — Entry surface (prompt.md, CLAUDE.md) contains only loading declarations; policy accumulation causes position-bias authority inversion. (20/25)
+- [`state-contract-over-prose-runbook.md`](confirmed/instructions/state-contract-over-prose-runbook.md) — Condition→action→trace is the established pattern (ReAct, MASMP) for agent phase instructions; prose runbooks cause silent misexecution via connective ambiguity. (21/25)
+- [`validator-structural-contract-not-content-police.md`](confirmed/instructions/validator-structural-contract-not-content-police.md) — Agent instruction verification requires two tiers: structural facts (automated) and quality judgment (model/human review); applying Tier 1 tools to Tier 2 questions locks monolithic architecture. (21/25)
 
 ### agents/
 
