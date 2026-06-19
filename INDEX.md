@@ -1,6 +1,6 @@
 # Best Practice Knowledge Base — Index
 
-Last updated: 2026-06-08
+Last updated: 2026-06-19
 
 Two tiers: **confirmed** (paper-backed, quality-gated, production-ready for agent injection) and **candidates** (observed patterns, pending independent confirmation).
 
@@ -39,6 +39,12 @@ Two tiers: **confirmed** (paper-backed, quality-gated, production-ready for agen
 
 - [`artifact-vs-knowledge.md`](confirmed/memory/artifact-vs-knowledge.md) — Episodic artifacts (immutable, gitignored) vs semantic knowledge (mutable, committed)
 - [`knowledge-update-strategies.md`](confirmed/memory/knowledge-update-strategies.md) — Strategy A (immediate post-run synthesis) vs B (batch) vs B+prediction-error, by agent type
+
+### execution/
+
+- [`acquisition-must-not-outrun-validation-contract.md`](confirmed/execution/acquisition-must-not-outrun-validation-contract.md) — Downstream validation contract (field schemas, evidence criteria, acceptance gates) must be locked before acquisition scales; cost asymmetry and irreversibility make this a hard prerequisite regardless of model capability
+- [`vertical-slice-before-horizontal-scale.md`](confirmed/execution/vertical-slice-before-horizontal-scale.md) — One sample through all pipeline stages must complete and pass before any stage is widened; horizontal scale without a prior end-to-end slice makes failure attribution proportional to batch size
+- [`stage-local-completion-and-repair.md`](confirmed/execution/stage-local-completion-and-repair.md) — Each pipeline stage owns a local DONE gate; on failure, repair is bounded to the earliest failing stage — full re-run from start is not the default
 
 ### safety/
 
